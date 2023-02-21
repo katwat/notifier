@@ -1,0 +1,136 @@
+.notifier {
+	background-color: rgba(0,0,0,0);
+	height:100%;
+	left: 0;
+	margin: 0;
+	opacity: 0; /* hide */
+	padding: 0;
+    pointer-events: none;
+	position: fixed;
+	top: 0;
+	/* transition: opacity .333s; */
+	width: 100%;
+	z-index: 999999;
+}
+.notifier.show {
+	opacity: 1;
+}
+.notifier.modal { /* progress, confirm */
+	background-color: rgba(0,0,0,.333);
+    pointer-events: auto;
+}
+.notifier > div {
+	background-color: #fff;
+	border: 1px solid #666;
+	border-radius: 4px;
+	/*box-shadow: 0 0 6px #666;*/
+	display: inline-block;
+	filter: drop-shadow(0 0 3px #666);
+	/*left: 50%;*/
+	margin: 0;
+	padding: 1em;
+	position: absolute;
+	/*transform: translate(-50%,-50%);*/
+	/*top: 50%;*/
+}
+.notifier > div > p {
+	display: inline;
+	margin: 0;
+	padding: 0;
+	text-align: left;
+}
+.notifier > .toast {
+	padding: .5em 1em;
+}
+.notifier > .progress {
+	/*min-width: 200px;*/
+	padding: .5em 1em;
+}
+.notifier > .confirm {
+	max-width: 100%;
+	min-width: 200px;
+    pointer-events: auto;
+}
+.notifier > .confirm > nav {
+	margin: .5em 0 0 0;
+	padding: 0;
+	text-align: right;
+}
+.notifier > .confirm > nav > button {
+	border: 0;
+	border-radius: 8px;
+	color: #fff;
+	font-size: 100%;
+	margin: 0;
+	outline: 0;
+	padding: .5em 1em;
+}
+.notifier > .confirm > nav > button:hover {
+	background-color: #ffbf00;
+	color: #000;
+}
+.notifier > .confirm > nav > button:active {
+	transform: translateY(2px);
+}
+
+/* position */
+.notifier > .pos-c { /* center */
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%,-50%);
+}
+.notifier > .pos-t { /* top */
+	top: 1em;
+	left: 50%;
+	transform: translate(-50%,0);
+}
+.notifier > .pos-r { /* right */
+	top: 50%;
+	left: auto;
+	right: 1em;
+	transform: translate(0,-50%);
+}
+.notifier > .pos-b { /* bottom */
+	top: auto;
+	left: 50%;
+	bottom: 1em;
+	transform: translate(-50%,0);
+}
+.notifier > .pos-l { /* left */
+	top: 50%;
+	left: 1em;
+	transform: translate(0,-50%);
+}
+.notifier > .pos-tl { /* top-left */
+	top: 1em;
+	left: 1em;
+	transform: translate(0,0);
+}
+.notifier > .pos-tr { /* top-right */
+	top: 1em;
+	left: auto;
+	right: 1em;
+	transform: translate(0,0);
+}
+.notifier > .pos-bl { /* bottom-left */
+	top: auto;
+	left: 1em;
+	bottom: 1em;
+	transform: translate(0,0);
+}
+.notifier > .pos-br { /* bottom-right */
+	top: auto;
+	left: auto;
+	bottom: 1em;
+	right: 1em;
+	transform: translate(0,0);
+}
+
+/* confirm button */
+.notifier > .confirm > nav > .cancel {
+	background-color: #9954bb;
+	margin: 0 .5em 0 0;
+}
+.notifier > .confirm > nav > .ok {
+	background-color: #3352b0;
+}

@@ -1,0 +1,30 @@
+{
+  "name": "notifier",
+  "version": "1.0.0",
+  "description": "notification such as toast, progress, or confirm",
+  "author": "katwat.s1005.xrea.com",
+  "license": "MPL-2.0",
+  "scripts": {
+    "build": "gulp",
+    "lint": "gulp lint"
+  },
+  "devDependencies": {
+    "gulp": "^4.0.2",
+    "gulp-clean-css": "^4.3.0",
+    "gulp-eslint": "^6.0.0",
+    "gulp-postcss": "^9.0.1",
+    "gulp-rename": "^2.0.0",
+    "gulp-uglify": "^3.0.2",
+    "postcss": "^8.4.21",
+    "stylelint": "^15.2.0",
+    "stylelint-config-recommended": "^10.0.1"
+  },
+  "resolutions": {
+    "glob-parent": "^5.1.2",
+    "chokidar": "^3.5.3",
+    "micromatch": "^4.0.5"
+  },
+  "stylelint": {
+    "extends": "stylelint-config-recommended"
+  }
+}

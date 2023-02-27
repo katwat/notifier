@@ -1,6 +1,6 @@
 {
   "name": "notifier",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "notification such as toast, progress, or confirm",
   "author": "katwat.s1005.xrea.com",
   "license": "MPL-2.0",

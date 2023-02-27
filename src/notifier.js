@@ -1,5 +1,5 @@
 /*!
- * notifier.js ver 1.0.0 (2023-02-17)
+ * notifier.js ver 1.0.1 (2023-02-27)
  * (c) katwat (katwat.s1005.xrea.com)
  */
 /*! This Source Code Form is subject to the terms of the Mozilla Public
@@ -14,6 +14,7 @@
 		PROGRESS = 2, // progress
 		CONFIRM = 3, // confirm
 
+		TICK_DELAY = 16,
 		TRANSITION_DELAY = 333,
 		TIMEOUT_DELAY = 3000, // default
 
@@ -70,13 +71,10 @@
 					*/
 					createDom('<div class="toast' + pos + custom + '">' + icon + '<p>' + text + '</p></div>');
 					if (timeout > 0) {
-						rootDom.ontransitionend = function() {
-							this.ontransitionend = null;
-							timeoutId = setTimeout(function() {
-								timeoutId = 0;
-								that.close();
-							},timeout);
-						};
+						timeoutId = setTimeout(function() {
+							timeoutId = 0;
+							that.close();
+						},timeout + TRANSITION_DELAY + TICK_DELAY);
 					}
 					break;
 				case PROGRESS:
@@ -146,13 +144,13 @@
 				document.body.appendChild(rootDom);
 				setTimeout(function() {
 					rootDom.classList.add('show'); // start transition
-				},0);
+				},TICK_DELAY);
 	
 				function createDom(html,modal) {
 					rootDom = document.createElement('div');
 					rootDom.className = 'notifier' + (modal ? ' modal' : '');
 					rootDom.innerHTML = html;
-					rootDom.style.transition = 'opacity ' + TRANSITION_DELAY/1000 + 's';
+					rootDom.style.transition = 'opacity ' + TRANSITION_DELAY/1000 + 's linear';
 				}
 			},
 			close: function(force) {
@@ -171,7 +169,7 @@
 	
 						setTimeout(function() {
 							rootDom.classList.remove('show'); // start transition
-						},0);
+						},TICK_DELAY);
 	
 						// fallback for no transition
 						fallbackId = setTimeout(remove,TRANSITION_DELAY + 100);

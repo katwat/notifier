@@ -1,5 +1,5 @@
 /*!
- * notifier.js ver 1.0.1 (2023-02-27)
+ * notifier.js ver 1.1.0 (2023-03-01)
  * (c) katwat (katwat.s1005.xrea.com)
  */
 /*! This Source Code Form is subject to the terms of the Mozilla Public
@@ -15,8 +15,6 @@
 		CONFIRM = 3, // confirm
 
 		TICK_DELAY = 16,
-		TRANSITION_DELAY = 333,
-		TIMEOUT_DELAY = 3000, // default
 
 		timeoutId = 0,
 		fallbackId = 0,
@@ -27,6 +25,9 @@
 
 		Notifier = {
 			escapeText: true, // setting false is at your own risk.
+			timeoutDelay: 3000, // toast display duration (ms)
+			transitionDuration: 333, // fade-in/out duration (tms)
+			transitionTiming: 'linear', // fade-in/out timing function
 			open: function(type,text,opt) {
 				var that = this,
 					okButtonDom,
@@ -60,7 +61,7 @@
 						timeout = 0; // no timeout
 					} else
 					if (!opt.timeout) {
-						timeout = TIMEOUT_DELAY; // use default if not assign
+						timeout = this.timeoutDelay; // use default if not assign
 					} else {
 						timeout = opt.timeout;
 					}
@@ -74,7 +75,7 @@
 						timeoutId = setTimeout(function() {
 							timeoutId = 0;
 							that.close();
-						},timeout + TRANSITION_DELAY + TICK_DELAY);
+						},timeout + that.transitionDuration + TICK_DELAY);
 					}
 					break;
 				case PROGRESS:
@@ -150,7 +151,7 @@
 					rootDom = document.createElement('div');
 					rootDom.className = 'notifier' + (modal ? ' modal' : '');
 					rootDom.innerHTML = html;
-					rootDom.style.transition = 'opacity ' + TRANSITION_DELAY/1000 + 's linear';
+					rootDom.style.transition = 'opacity ' + that.transitionDuration + 'ms ' + that.transitionTiming;
 				}
 			},
 			close: function(force) {
@@ -172,7 +173,7 @@
 						},TICK_DELAY);
 	
 						// fallback for no transition
-						fallbackId = setTimeout(remove,TRANSITION_DELAY + 100);
+						fallbackId = setTimeout(remove,this.transitionDuration + TICK_DELAY*6);
 					} else {
 						remove();
 					}

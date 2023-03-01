@@ -24,7 +24,7 @@ notifier.js は通知機能な Javascript ライブラリです。
 
 # API
 
-## toast - 一定時間テキストを表示
+## toast() - 一定時間テキストを表示
 
 ```Notifier.toast(text[,options])```
 
@@ -39,7 +39,7 @@ notifier.js は通知機能な Javascript ライブラリです。
 	custom: undefined, // 表示をカスタマイズするための追加クラス名。
 	icon: undefined, // アイコン表示のための追加クラス名。
 	onclose: undefined, // 表示が閉じた時のコールバック。
-	timeout: 3000 // 表示する時間(ms)。ただし0以下の場合は自動で閉じないので、明示的にclose()する必要あり。
+	timeout: 3000 // 表示する時間(単位はms)。ただし0以下の場合は自動で閉じないので、明示的にclose()する必要あり。
 }
 ```
 
@@ -60,7 +60,7 @@ Notifier.toast('Hello, World!',{
 });
 ```
 
-## progress - モーダルな進捗表示
+## progress() - モーダルな進捗表示
 
 ```Notifier.progress(text[,options])```
 
@@ -120,7 +120,7 @@ Notifier.progress();
 
 アイコンフォントは [IcoMoon](https://icomoon.io/) などで入手可能です。
 
-## confirm - モーダルな確認表示
+## confirm() - モーダルな確認表示
 
 ```Notifier.confirm(text[,options])```
 
@@ -160,7 +160,7 @@ Notifier.confirm('Is that OK?',{
 
 ```
 
-## close - 表示を閉じる
+## close() - 表示を閉じる
 
 ```Notifier.close([force])```
 
@@ -168,7 +168,7 @@ Notifier.confirm('Is that OK?',{
 
 ***説明：***
 
-force 無しで実行すると、短時間の fadeout 完了後に表示を閉じます。
+force 無しで実行すると、短時間の fade-out 完了後に表示を閉じます。
 
 ## escapeText - テキストをエスケープ
 
@@ -177,3 +177,16 @@ force 無しで実行すると、短時間の fadeout 完了後に表示を閉�
 ***説明：***
 
 既定では、テキストに含まれる `<` や `>` といった HTML なメタ文字はエスケープされて特別な意味を持たない文字そのままとして表示されます。`Notifier.escapeText = false;` とやると、HTML なテキストを渡すことが可能になりますが、予期しない結果となる場合があるかもしれません。使用の際は自己責任でお願いします。
+
+## timeoutDelay - トースト表示が閉じるまでの既定時間（単位はms）
+
+```Notifier.timeoutDelay = 3000; // default```
+
+## transitionDuration - fade-in/outに要する既定時間（単位はms）
+
+```Notifier.transitionDuration = 333; // default (-> CSS: transition-duration)```
+
+## transitionTiming - fade-in/out変化の既定方式
+
+```Notifier.transitionTiming = 'linear'; // default (-> CSS: transition-timing-function)```
+

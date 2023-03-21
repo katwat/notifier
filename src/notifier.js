@@ -1,5 +1,5 @@
 /*!
- * notifier.js ver 1.1.0 (2023-03-01)
+ * notifier.js ver 1.1.1 (2023-03-22)
  * (c) katwat (katwat.s1005.xrea.com)
  */
 /*! This Source Code Form is subject to the terms of the Mozilla Public
@@ -80,7 +80,7 @@
 					break;
 				case PROGRESS:
 					/*
-					<div class="progress modal {pos} {custom}">
+					<div class="progress {pos} {custom}">
 						{<i class="icon-xxx"></i>}<p>{text}</p>
 					</div>
 					*/
@@ -108,7 +108,7 @@
 					onok = opt.onok;
 					oncancel = opt.oncancel;
 					/*
-					<div class="confirm modal {pos} {custom}">
+					<div class="confirm {pos} {custom}">
 						{<i class="icon-xxx"></i>}<p>{text}</p>
 						<nav>
 							<button class="cancel">{cancel}</button>
@@ -162,18 +162,19 @@
 				if (force) {
 					remove();
 				} else {
-					if (rootDom.classList.contains('show')) {
-						rootDom.ontransitionend = function() {
-							this.ontransitionend = null;
-							remove();
-						};
-	
-						setTimeout(function() {
-							rootDom.classList.remove('show'); // start transition
-						},TICK_DELAY);
-	
-						// fallback for no transition
-						fallbackId = setTimeout(remove,this.transitionDuration + TICK_DELAY*6);
+					if (rootDom && rootDom.classList.contains('show')) {
+						if (!rootDom.ontransitionend) {
+							rootDom.ontransitionend = function() {
+								remove();
+							};
+
+							setTimeout(function() {
+								rootDom.classList.remove('show'); // start transition
+							},TICK_DELAY);
+
+							// fallback for no transition
+							fallbackId = setTimeout(remove,this.transitionDuration + TICK_DELAY*6);
+						}
 					} else {
 						remove();
 					}

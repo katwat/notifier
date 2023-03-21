@@ -1,6 +1,6 @@
 {
   "name": "notifier",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "notification such as toast, progress, or confirm",
   "author": "katwat.s1005.xrea.com",
   "license": "MPL-2.0",
@@ -10,11 +10,11 @@
   },
   "devDependencies": {
     "clean-css": "^5.3.2",
-    "eslint": "^8.35.0",
+    "eslint": "^8.36.0",
     "gulp": "^4.0.2",
     "replace-ext": "^2.0.0",
-    "stylelint": "^15.2.0",
-    "stylelint-config-recommended": "^10.0.1",
+    "stylelint": "^15.3.0",
+    "stylelint-config-recommended": "^11.0.0",
     "uglify-js": "^3.17.4"
   },
   "resolutions": {

@@ -1,5 +1,5 @@
 /*!
- * notifier.js ver 1.1.1 (2023-03-22)
+ * notifier.js ver 1.1.2 (2024-04-03)
  * (c) katwat (katwat.s1005.xrea.com)
  */
 /*! This Source Code Form is subject to the terms of the Mozilla Public
@@ -8,7 +8,7 @@
  */
 (function(definition) {
 	Notifier = definition(document);
-}(function(document) {
+})(function(document) {
 	var // notification type
 		TOAST = 1, // toast
 		PROGRESS = 2, // progress
@@ -233,4 +233,4 @@
 		}) : t;
 	}
 
-}));
+});

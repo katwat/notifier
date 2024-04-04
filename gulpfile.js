@@ -1,9 +1,9 @@
-const gulp = require('gulp'),
-	stylelint = require('stylelint'),
-	{ ESLint } = require('eslint'),
-	cleancss = require('clean-css'),
-	uglifyjs = require('uglify-js'),
-	replaceExt = require('replace-ext');
+import gulp from 'gulp';
+import stylelint from 'stylelint';
+import { ESLint } from 'eslint';
+import cleancss from 'clean-css';
+import uglifyjs from 'uglify-js';
+import replaceExt from 'replace-ext';
 
 function lintCSS() {
 	return gulp.src('src/notifier.css')
@@ -46,8 +46,8 @@ function _stylelint(file) {
 		formatter: 'string'
 	})
 	.then(result => {
-		if (result.output) {
-			console.log(result.output);
+		if (result.report) {
+			console.log(result.report);
 		}
 	})
 	.catch(error => {
@@ -64,7 +64,7 @@ function _eslint(file) {
 			overrideConfig: {
 				extends: 'eslint:recommended',
 				parserOptions: {
-					//sourceType: 'module',
+					sourceType: 'module',
 					ecmaVersion: 'latest'
 				},
 				env: {
@@ -112,6 +112,8 @@ function _uglifyjs(file) {
 	file.contents = Buffer.from(result.code);
 }
 
-exports.default = gulp.parallel(minifyCSS,minifyJS);
+const build = gulp.parallel(minifyCSS,minifyJS);
 
-exports.lint = gulp.parallel(lintCSS,lintJS);
+const lint = gulp.parallel(lintCSS,lintJS);
+
+export {build as default, lint};

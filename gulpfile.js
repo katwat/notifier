@@ -1,17 +1,21 @@
 import gulp from 'gulp';
 import stylelint from 'stylelint';
 import { ESLint } from 'eslint';
-import cleancss from 'clean-css';
+import postcss from 'postcss';
+import cssnano from 'cssnano';
 import uglifyjs from 'uglify-js';
-import replaceExt from 'replace-ext';
+
+function gulp_src(globs) {
+	return gulp.src(globs,{encoding:false}); // as binary
+}
 
 function lintCSS() {
-	return gulp.src('src/notifier.css')
+	return gulp_src('src/notifier.css')
 	.on('data',_stylelint);
 }
 
 function lintJS() {
-	return gulp.src([
+	return gulp_src([
 		'gulpfile.js',
 		'src/notifier.js'
 	])
@@ -19,19 +23,19 @@ function lintJS() {
 }
 
 function minifyCSS() {
-	return gulp.src('src/notifier.css')
-	.on('data',function(file) {
-		_cleancss(file);
-		file.path = replaceExt(file.path,'.min.css');
+	return gulp_src('src/notifier.css')
+	.on('data',file => {
+		_cssnano(file);
+		file.extname = '.min.css'; // -> https://github.com/gulpjs/vinyl
 	})
 	.pipe(gulp.dest('build/'));
 }
 
 function minifyJS() {
-	return gulp.src('src/notifier.js')
-	.on('data',function(file) {
+	return gulp_src('src/notifier.js')
+	.on('data',file => {
 		_uglifyjs(file);
-		file.path = replaceExt(file.path,'.min.js');
+		file.extname = '.min.js'; // -> https://github.com/gulpjs/vinyl
 	})
 	.pipe(gulp.dest('build/'));
 }
@@ -59,25 +63,7 @@ function _stylelint(file) {
 function _eslint(file) {
 	(async function() {
 		// 1. Create an instance
-		const eslint = new ESLint({
-			useEslintrc: false,
-			overrideConfig: {
-				extends: 'eslint:recommended',
-				parserOptions: {
-					sourceType: 'module',
-					ecmaVersion: 'latest'
-				},
-				env: {
-					node: true,
-					browser: true,
-					worker: true,
-					es2022: true
-				},
-				globals: {
-					Notifier: 'writable'
-				}
-			},
-		});
+		const eslint = new ESLint(); // use eslint.config.js
 
 		// 2. Lint text.
 		const results = await eslint.lintText(file.contents.toString(),{
@@ -98,9 +84,15 @@ function _eslint(file) {
 	});
 }
 
-function _cleancss(file) {
-	const result = new cleancss(/* options */).minify(file.contents.toString());
-	file.contents = Buffer.from(result.styles);
+function _cssnano(file) {
+	(async function() {
+		// postcss API -> https://postcss.org/api/
+		const result = await postcss([cssnano]).process(file.contents.toString(),{from:file.path});
+		file.contents = Buffer.from(result.css);
+	})().catch(error => {
+		console.error(error);
+		process.exitCode = 1;
+	});
 }
 
 function _uglifyjs(file) {

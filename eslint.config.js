@@ -10,7 +10,7 @@ export default [
 				ecmaVersion: "latest"
 			},
 			globals: {
-				...globals.es2026,
+				...globals.es2027,
 				...globals.browser,
 				...globals.worker,
 				...globals.node,

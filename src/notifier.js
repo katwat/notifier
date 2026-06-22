@@ -1,5 +1,5 @@
 /*!
- * notifier.js ver 1.1.2 (2024-04-03)
+ * notifier.js ver 1.2.0 (2026-06-22)
  * (c) katwat (katwat.s1005.xrea.com)
  */
 /*! This Source Code Form is subject to the terms of the Mozilla Public
